@@ -47,3 +47,17 @@ def given_a_starting_set_of_observations_followed_by_a_one_off_observation_test(
     for guessed_number in guessed_numbers:
         assert guessed_number in previously_chosen_numbers + [one_off_observation], 'every guess should be one of the previously chosen numbers'
     assert len(set(guessed_numbers)) > 1, "It shouldn't always guess the same number."
+
+def given_a_one_off_observation_followed_by_a_set_of_observations_test():
+    number_guesser = NumberGuesser()
+    previously_chosen_numbers = [1,2]
+    one_off_observation = 0
+    all_observations = previously_chosen_numbers + [one_off_observation]
+    number_guesser.number_was(one_off_observation)
+    number_guesser.numbers_were(previously_chosen_numbers)
+
+    guessed_numbers = [number_guesser.guess() for i in range(0,100)]
+
+    for guessed_number in guessed_numbers:
+        assert guessed_number in all_observations, 'every guess should be one of the previously chosen numbers'
+    assert len(set(guessed_numbers)) > 1, "It shouldn't always guess the same number."
